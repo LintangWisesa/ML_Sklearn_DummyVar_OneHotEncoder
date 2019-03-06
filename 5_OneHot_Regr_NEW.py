@@ -31,7 +31,7 @@ dfOnehot = df
 dfOnehot['kota'] = lab.fit_transform(dfOnehot['kota'])
 # print(dfOnehot)
 
-x = dfOnehot[['kota', 'luas']].values
+x = dfOnehot[['kota', 'luas']]
 y = dfOnehot['harga']
 print(x)
 print(y)
@@ -39,11 +39,16 @@ print(y)
 # ==========================
 # one hot encoding with sklearn
 
-from sklearn.preprocessing import OneHotEncoder
-ohe = OneHotEncoder(categorical_features=[0])
+from sklearn.preprocessing import FunctionTransformer, OneHotEncoder
+from sklearn.compose import ColumnTransformer, make_column_transformer
 
-x = ohe.fit_transform(x).toarray()
-print(x)
+z = make_column_transformer(
+    (OneHotEncoder(categories='auto'), ['kota']),
+    (FunctionTransformer(), ['luas'])
+)
+
+z = z.fit_transform(x)
+print(z)
 
 # Bks, Bgr, Dpk, luas
 # [0.0e+00 1.0e+00 0.0e+00 3.6e+03]]
@@ -55,7 +60,7 @@ from sklearn.linear_model import LinearRegression
 model = LinearRegression()
 
 # training
-model.fit(x, y)
+model.fit(z, y)
 
 # slope
 print(model.coef_)
@@ -64,7 +69,7 @@ print(model.coef_)
 print(model.intercept_)
 
 # score
-print(model.score(x, y))
+print(model.score(z, y))
 
 # prediction luas 2600 di Bekasi, Bogor, Depok
 print(model.predict([[1, 0, 0, 2600]]))
