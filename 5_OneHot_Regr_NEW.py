@@ -44,7 +44,7 @@ from sklearn.compose import ColumnTransformer, make_column_transformer
 
 z = make_column_transformer(
     (OneHotEncoder(categories='auto'), ['kota']),
-    (FunctionTransformer(), ['luas'])
+    (FunctionTransformer(validate=True), ['luas'])
 )
 
 z = z.fit_transform(x)
