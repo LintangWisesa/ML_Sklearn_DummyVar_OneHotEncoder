@@ -40,10 +40,33 @@ print(y)
 # one hot encoding with sklearn
 
 from sklearn.preprocessing import OneHotEncoder
-ohe = OneHotEncoder()
+ohe = OneHotEncoder(categorical_features=[0])
 
 x = ohe.fit_transform(x).toarray()
 print(x)
 
 # Bks, Bgr, Dpk, 2600, 2800, 2900, 3000, 3100, 3200, 3300, 3600, 4000
 # [1. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0.]
+
+# ==========================
+# regression
+
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+
+# training
+model.fit(x, y)
+
+# slope
+print(model.coef_)
+
+# intercept
+print(model.intercept_)
+
+# score
+print(model.score(x, y))
+
+# prediction luas 2600 di Bekasi, Bogor, Depok
+print(model.predict([[1, 0, 0, 2600]]))
+print(model.predict([[0, 1, 0, 2600]]))
+print(model.predict([[0, 0, 1, 2600]]))
