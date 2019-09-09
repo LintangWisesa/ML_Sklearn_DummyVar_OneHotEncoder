@@ -35,6 +35,7 @@ x = dfOnehot[['kota', 'luas']].values
 y = dfOnehot['harga']
 print(x)
 print(y)
+print(dfOnehot)
 
 # ==========================
 # one hot encoding with sklearn
@@ -43,7 +44,7 @@ from sklearn.preprocessing import OneHotEncoder
 ohe = OneHotEncoder(categorical_features=[0])
 
 x = ohe.fit_transform(x).toarray()
-print(x)
+# print(x)
 
 # Bks, Bgr, Dpk, luas
 # [0.0e+00 1.0e+00 0.0e+00 3.6e+03]]
@@ -58,15 +59,15 @@ model = LinearRegression()
 model.fit(x, y)
 
 # slope
-print(model.coef_)
+# print(model.coef_)
 
 # intercept
-print(model.intercept_)
+# print(model.intercept_)
 
 # score
-print(model.score(x, y))
+# print(model.score(x, y))
 
 # prediction luas 2600 di Bekasi, Bogor, Depok
-print(model.predict([[1, 0, 0, 2600]]))
-print(model.predict([[0, 1, 0, 2600]]))
-print(model.predict([[0, 0, 1, 2600]]))
+# print(model.predict([[1, 0, 0, 2600]]))
+# print(model.predict([[0, 1, 0, 2600]]))
+# print(model.predict([[0, 0, 1, 2600]]))
